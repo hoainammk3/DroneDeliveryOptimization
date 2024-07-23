@@ -14,7 +14,7 @@ wind1 = pre.Wind(np.random.uniform(2.0, 3.5), 0)
 
 depot1 = pre.Depot("Chatenay-Malabry", 0, 0)
 
-param1 = pre.DeliveryParameters(drone2, wind1, pro.cost_b)
+param1 = pre.DeliveryParameters(drone1, wind1, pro.cost_b) # Editing drone wants to work here
 
 total_cost = 0
 total_savings = 0
@@ -24,15 +24,9 @@ for i in range(1000):
     problem_i.generate_random_clients(amount=np.random.randint(50, 60),
                                       x=(-6000, 6000), y=(-3500, 3500),
                                       demand=(5, 60))
-    pro.clarke_and_wright(problem_i, param1, version="sequential")
+    pro.clarke_and_wright(problem_i, param1, version="sequential") # Edit version wants to work here
     solution_i = problem_i.solutions_list[0]
     total_cost += solution_i.cost_and_savings()[0]
     total_savings += solution_i.cost_and_savings()[1]
-    problem_i.export_csv("sequential/pb_drone2/pb{}_b.csv".format(i))
-
 average = total_savings / (total_savings + total_cost)
-print("Drone2.", "The average sequential saving for 1000 independent problems is {}".format(average))
-
-with open('sequential/pb_drone2/_results.txt', 'w') as file:
-    file.write("Drone2. The average sequential saving for 1000 independent problems is {}".format(average))
-
+print("Drone1:", "The average sequential saving for 1000 independent problems is {}".format(average))
